@@ -1,8 +1,9 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +14,16 @@ import model.Pessoa;
 import service.PessoaService;
 
 /**
- * Servlet implementation class PrimeiroServlet
+ * Servlet implementation class InserirPessoaServlet
  */
-@WebServlet("/PrimeiroServlet")
-public class PrimeiroServlet extends HttpServlet {
+@WebServlet("/InserirPessoaServlet")
+public class InserirPessoaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrimeiroServlet() {
+    public InserirPessoaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +32,19 @@ public class PrimeiroServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		PrintWriter saidaHtml = response.getWriter();
 		
-		saidaHtml.println("<html>");
-		saidaHtml.println("<head>");
-		saidaHtml.println("<title>Primeiro App testando Impressão via Servlet</title>");
-		saidaHtml.println("</head>");
-		saidaHtml.println("<h1>Lista de Pessoas:</h1>");
-		saidaHtml.println("<table border=1>");
-		PessoaService serv = new PessoaService(5);
-		for (Pessoa p : serv.getListaPessoas()) {
-			saidaHtml.println("<tr>");
-			saidaHtml.println("<td>" + p.getCpf() + "</td>");
-			saidaHtml.println("<td>" + p.getNome() + "</td>");
-			saidaHtml.println("</tr>");
-		}
-		saidaHtml.println("</table>");
-		saidaHtml.println("</body>");
-		saidaHtml.println("</html>");
+		//int numPessosa = (int)request.getSession().getAttribute("numPessoas");
+		
+		//PessoaService serv = new PessoaService(numPessosa);
+		String nome = request.getParameter("nome");
+		
+		List<Pessoa> listaPessoas = (List<Pessoa>)request.getSession().getAttribute("listaDePessoas"); 
+		listaPessoas.add(new Pessoa(listaPessoas.size()+1, nome));
+		
+		//request.setAttribute("listaDePessoas", serv.getListaPessoas());
+		RequestDispatcher despachante = request.getRequestDispatcher("/listaDePessoas.jsp");
+		
+		despachante.forward(request, response);
 	}
 
 	/**
