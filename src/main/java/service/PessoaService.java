@@ -18,13 +18,13 @@ public class PessoaService {
 		
 		
 		for (int i = 0; i <= _numInstancias; i++) {
-			this.listaPessoas.add(new Pessoa(i+1, "teste " + i+1));
+			this.listaPessoas.add(new Pessoa(i+1, "teste " + i+1, "teste " + i+1 + "@gmail.com", null, null));
 		}
 	}
 	
 	public void addPessoa(String _nome) {
 		
-		this.listaPessoas.add(new Pessoa(this.listaPessoas.size(), _nome));
+		this.listaPessoas.add(new Pessoa(this.listaPessoas.size(), _nome, _nome + this.listaPessoas.size() + "@gmail.com", null, null));
 		
 	}
 

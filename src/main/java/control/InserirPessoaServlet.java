@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Pessoa;
-import service.PessoaService;
 
 /**
  * Servlet implementation class InserirPessoaServlet
@@ -38,8 +37,9 @@ public class InserirPessoaServlet extends HttpServlet {
 		//PessoaService serv = new PessoaService(numPessosa);
 		String nome = request.getParameter("nome");
 		
+		@SuppressWarnings("unchecked")
 		List<Pessoa> listaPessoas = (List<Pessoa>)request.getSession().getAttribute("listaDePessoas"); 
-		listaPessoas.add(new Pessoa(listaPessoas.size()+1, nome));
+		listaPessoas.add(new Pessoa(listaPessoas.size()+1, nome, null, null, null));
 		
 		//request.setAttribute("listaDePessoas", serv.getListaPessoas());
 		RequestDispatcher despachante = request.getRequestDispatcher("/listaDePessoas.jsp");
