@@ -21,7 +21,7 @@ public class Pessoa implements Serializable {
 		this.enderecos = new ArrayList<Endereco>();
 	}
 	
-	public Pessoa(int _cpf, String _nome, String _email, Endereco _endPadrao, List<Endereco> _enderecos) {
+	public Pessoa(long _cpf, String _nome, String _email, Endereco _endPadrao, List<Endereco> _enderecos) {
 		super();
 		this.cpf = _cpf;
 		this.nome = _nome;
