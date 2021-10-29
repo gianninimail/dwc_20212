@@ -12,7 +12,7 @@ public class FabricaConexao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			String strConn = "jdbc:mysql://localhost:3306/";
+			String strConn = "jdbc:mysql://localhost:3306/aula_web";
 			String user = "root";
 			String pass = "root";
 			
