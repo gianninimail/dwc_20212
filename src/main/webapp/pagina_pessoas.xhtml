@@ -17,7 +17,23 @@
 	</ui:define>
 	
 	<ui:define name="conteudo">
-		<p:graphicImage id="imgLogo" library="images" name="logo_lasalle.png" />
+		
+		<p:dataTable var="p" value="#{pessoaBean.pessoas}" emptyMessage="Nenhum registro encontrado!">
+		    
+		    <p:column headerText="CPF">
+		        <h:outputText value="#{p.cpf}" />
+		    </p:column>
+		 
+		    <p:column headerText="Nome">
+		        <h:outputText value="#{p.nome}" />
+		    </p:column>
+		 
+		    <p:column headerText="E-mail">
+		        <h:outputText value="#{p.email}" />
+		    </p:column>
+		    
+		</p:dataTable>
+
 	</ui:define>
 	
 	<ui:define name="rodape">

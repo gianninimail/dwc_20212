@@ -115,8 +115,8 @@ public class PessoaDAO implements PessoaInDAO {
 		//Preenchimento da Lista para retorno da Camada Requisitante
 		
 		String SQL = "SELECT "
-				+ "cpf, nome, cel, email, end_padrao"
-				+ " FROM pessoa";
+				+ "cpf, nome, email, end_padrao"
+				+ " FROM pessoas";
 		
 		PreparedStatement ps = this.conexao.prepareStatement(SQL);
 		
@@ -129,9 +129,9 @@ public class PessoaDAO implements PessoaInDAO {
 			String email = rs.getString("email");
 			int endPadrao = rs.getInt("end_padrao");
 			
-			EnderecoDAO daoEnd = new EnderecoDAO(this.conexao);
+			//EnderecoDAO daoEnd = new EnderecoDAO(this.conexao);
 			
-			Pessoa p = new Pessoa(cpf, nome, email, daoEnd.buscarPeloID(endPadrao), daoEnd.recuperarEnderecosPorPessoa(cpf));
+			Pessoa p = new Pessoa(cpf, nome, email, null, null);
 			
 			listaPessoas.add(p);
 		}
