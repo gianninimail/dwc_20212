@@ -26,7 +26,7 @@ public class PessoaDAO implements PessoaInDAO {
 		
 		ps.setLong(1, _pessoa.getCpf());
 		ps.setString(2, _pessoa.getNome());
-		ps.setString(4, _pessoa.getEmail());
+		ps.setString(3, _pessoa.getEmail());
 		
 		return ps.execute();
 	}
@@ -34,7 +34,7 @@ public class PessoaDAO implements PessoaInDAO {
 	@Override
 	public boolean deletar(long _cpf) throws SQLException {
 
-		String SQL = "DELETE FROM pessoa WHERE cpf = ?";
+		String SQL = "DELETE FROM pessoas WHERE cpf = ?";
 		
 		PreparedStatement ps = this.conexao.prepareStatement(SQL);
 		ps.setLong(1, _cpf);
@@ -52,22 +52,25 @@ public class PessoaDAO implements PessoaInDAO {
 	@Override
 	public boolean alterar(Pessoa _pessoa) throws SQLException {
 		
-		String SQL = "UPDATE pessoa SET "
-				+ "nome = ?, cel = ?, email = ?, end_padrao = ?"
+		String SQL = "UPDATE pessoas SET "
+				+ "nome = ?, email = ?"
 				+ " WHERE cpf = ?";
 		
 		PreparedStatement ps = this.conexao.prepareStatement(SQL);
 		
 		ps.setString(1, _pessoa.getNome());
-		ps.setString(3, _pessoa.getEmail());
+		ps.setString(2, _pessoa.getEmail());
+		
 		//Verificação para ver se EndPadrão foi instanciado
+		/*
 		if (_pessoa.getEndPadrao() != null) {
 			ps.setInt(4, _pessoa.getEndPadrao().getId());
 		}
 		else {
 			ps.setNull(4, java.sql.Types.NULL);
 		}
-		ps.setLong(5, _pessoa.getCpf());
+		*/
+		ps.setLong(3, _pessoa.getCpf());
 		
 		if(ps.executeUpdate() == 1) 
 		{

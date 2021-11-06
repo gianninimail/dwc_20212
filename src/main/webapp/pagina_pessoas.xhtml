@@ -17,23 +17,109 @@
 	</ui:define>
 	
 	<ui:define name="conteudo">
+		<h:form id="form">
+			<p:dataTable id="tblPessoas" var="p" value="#{pessoaBean.listaJSF}" 
+				emptyMessage="Nenhum registro encontrado!"
+				rows="10"
+	            paginator="true"
+	            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+	            rowsPerPageTemplate="5,10,15" >
+			    
+			    <p:column headerText="CPF">
+			        <h:outputText value="#{p.cpf}" />
+			    </p:column>
+			 
+			    <p:column headerText="Nome">
+			        <h:outputText value="#{p.nome}" />
+			    </p:column>
+			 
+			    <p:column headerText="E-mail">
+			        <h:outputText value="#{p.email}" />
+			    </p:column>
+			    
+			     <p:column headerText="op">
+			     	 <p:commandButton icon="pi pi-pencil" 
+			     	 	actionListener="#{pessoaBean.PrepararEditar}"  
+			        	onclick="PF('dlgEditarPessoa').show()"
+			        	update=":fEditar:pgEditar"/>
+			        	
+			    </p:column>
+			    
+			</p:dataTable>
+			
+			<p:commandButton icon="pi pi-user-plus" value="Cadastrar" 
+				actionListener="#{pessoaBean.PrepararCadastrar}"
+				onclick="PF('dlgCadastrarPessoa').show()"
+				update=":fCadastrar:pgCadastrar"/>
+		</h:form>
 		
-		<p:dataTable var="p" value="#{pessoaBean.pessoas}" emptyMessage="Nenhum registro encontrado!">
-		    
-		    <p:column headerText="CPF">
-		        <h:outputText value="#{p.cpf}" />
-		    </p:column>
-		 
-		    <p:column headerText="Nome">
-		        <h:outputText value="#{p.nome}" />
-		    </p:column>
-		 
-		    <p:column headerText="E-mail">
-		        <h:outputText value="#{p.email}" />
-		    </p:column>
-		    
-		</p:dataTable>
+		<p:dialog header="Cadastrar um cadastro de Pessoa" widgetVar="dlgCadastrarPessoa" modal="true"
+			showEffect="blind" hideEffect="explode" resizable="false" appendTo="@(body)">
+			
+			<h:form id="fCadastrar">
+				<p:outputPanel id="pgCadastrar" style="text-align:center;">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="CPF" />
+						<p:inputText value="#{pessoaBean.pessoa.cpf}" />
+						
+						<p:outputLabel value="Nome" />
+						<p:inputText value="#{pessoaBean.pessoa.nome}"/>
+					
+						<p:outputLabel value="E-mail" />
+						<p:inputText value="#{pessoaBean.pessoa.email}"/>
+						
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2">
+					
+						<p:commandButton value="Confirmar" actionListener="#{pessoaBean.Cadastrar}"
+							oncomplete="PF('dlgCadastrarPessoa').hide()"
+							update=":form:tblPessoas" />
+						
+						<p:commandButton value="Cancelar" actionListener="#{PagPessoa.Clear}" 
+							oncomplete="PF('dlgCadastrarPessoa').hide()"
+							update=":fCadastrar:pgCadastrar"/>
+					
+					</p:panelGrid>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
 
+
+		<p:dialog header="Editar um cadastro de Pessoa" widgetVar="dlgEditarPessoa" modal="true"
+			showEffect="blind" hideEffect="explode" resizable="false" appendTo="@(body)">
+			
+			<h:form id="fEditar">
+				<p:outputPanel id="pgEditar" style="text-align:center;">
+					<p:panelGrid columns="2">
+						
+						<p:outputLabel value="Id" />
+						<p:inputText value="#{pessoaBean.pessoa.cpf}" />
+						
+						<p:outputLabel value="Nome" />
+						<p:inputText value="#{pessoaBean.pessoa.nome}"/>
+						
+						<p:outputLabel value="E-mail" />
+						<p:inputText value="#{pessoaBean.pessoa.email}"/>
+						
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2">
+					
+						<p:commandButton value="Confirmar" actionListener="#{pessoaBean.Editar}"
+							oncomplete="PF('dlgEditarPessoa').hide()"
+							update=":form:tblPessoas" />
+						
+						<p:commandButton value="Cancelar" actionListener="#{PagPessoa.Clear}" 
+							oncomplete="PF('dlgEditarPessoa').hide()"
+							update=":fEditar:pgEditar"/>
+					
+					</p:panelGrid>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+		
 	</ui:define>
 	
 	<ui:define name="rodape">

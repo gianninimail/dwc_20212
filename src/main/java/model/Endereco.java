@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Endereco implements Serializable {
 
@@ -11,7 +10,7 @@ public class Endereco implements Serializable {
 	private Pessoa pessoa;
 	
 	public Endereco() {
-		this.pessoa = new Pessoa();
+		//this.pessoa = new Pessoa();
 	}
 	
 	public Endereco(int id, String logradouro, Pessoa _pessoa) {
@@ -45,9 +44,14 @@ public class Endereco implements Serializable {
 		this.pessoa = pessoa;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
 	}
 
 	@Override
@@ -59,7 +63,9 @@ public class Endereco implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Endereco other = (Endereco) obj;
-		return id == other.id;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 	@Override

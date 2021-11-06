@@ -3,12 +3,11 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Pessoa implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private long cpf;
+	private Long cpf;
 	private String nome;
 	private String email;
 	
@@ -30,11 +29,11 @@ public class Pessoa implements Serializable {
 		this.enderecos = _enderecos;
 	}
 	
-	public long getCpf() {
+	public Long getCpf() {
 		return cpf;
 	}
 	
-	public void setCpf(long cpf) {
+	public void setCpf(Long cpf) {
 		this.cpf = cpf;
 	}
 	
@@ -72,7 +71,10 @@ public class Pessoa implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpf);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		return result;
 	}
 
 	@Override
@@ -84,7 +86,12 @@ public class Pessoa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		return cpf == other.cpf;
+		if (cpf == null) {
+			if (other.cpf != null)
+				return false;
+		} else if (!cpf.equals(other.cpf))
+			return false;
+		return true;
 	}
 
 	@Override
